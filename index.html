@@ -3,87 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VORA · AI-Powered Smart Contract Security</title>
+  <title>VORA | AI-Powered Smart Contract Security</title>
   <meta name="description" content="Hunt vulnerabilities before attackers do. AI-powered smart contract security that finds bugs, generates fixes, and submits PRs automatically.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="VORA · AI-Powered Smart Contract Security">
+  <meta property="og:title" content="VORA | AI-Powered Smart Contract Security">
   <meta property="og:description" content="Hunt vulnerabilities before attackers do. AI-powered smart contract security.">
   <meta property="og:type" content="website">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d0630'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='%237c3aed' font-family='system-ui' font-weight='bold' font-size='18'>V</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff6b35'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold' font-size='18'>V</text></svg>">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --purple-50: #faf5ff;
-      --purple-100: #f3e8ff;
-      --purple-200: #e9d5ff;
-      --purple-300: #d8b4fe;
-      --purple-400: #c084fc;
-      --purple-500: #a855f7;
-      --purple-600: #9333ea;
-      --purple-700: #7c3aed;
-      --purple-800: #6b21a8;
-      --purple-900: #581c87;
+      --orange: #ff6b35;
+      --orange-dark: #e55a2b;
+      --orange-light: #ff8c5a;
 
-      --gray-50: #f9fafb;
-      --gray-100: #f3f4f6;
-      --gray-200: #e5e7eb;
-      --gray-300: #d1d5db;
-      --gray-400: #9ca3af;
-      --gray-500: #6b7280;
-      --gray-600: #4b5563;
-      --gray-700: #374151;
-      --gray-800: #1f2937;
-      --gray-900: #111827;
+      --bg-black: #0a0a0a;
+      --bg-card: #111111;
+      --bg-card-hover: #1a1a1a;
 
-      --bg-dark: #0d0630;
-      --bg-darker: #080420;
-      --bg-card: #1a0a4a;
-      --text-primary: #f8fafc;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
-      --border-color: rgba(124, 58, 237, 0.2);
+      --text-white: #ffffff;
+      --text-gray: #a1a1aa;
+      --text-muted: #6b6b6b;
+
+      --border: #222222;
+      --border-hover: #333333;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-black);
+      color: var(--text-white);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: var(--purple-400); text-decoration: none; transition: color 0.2s; }
-    a:hover { color: var(--purple-300); }
+    a { color: inherit; text-decoration: none; }
 
     .container {
-      max-width: 960px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 24px;
+    }
+
+    /* Announcement Banner */
+    .banner {
+      background: var(--orange);
+      color: white;
+      padding: 12px 24px;
+      text-align: center;
+      font-size: 14px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .banner a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      font-weight: 500;
+    }
+
+    .banner a:hover { text-decoration: underline; }
+
+    .banner-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
     }
 
     /* Header */
     .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 1rem 0;
-      background: rgba(13, 6, 48, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
     }
 
     .header .container {
@@ -95,409 +101,599 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 1.25rem;
+      gap: 10px;
+      font-size: 20px;
       font-weight: 700;
-      color: var(--text-primary);
     }
 
-    .logo:hover { color: var(--text-primary); }
-
     .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, var(--purple-600), var(--purple-800));
+      width: 36px;
+      height: 36px;
+      background: var(--orange);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 1rem;
     }
 
-    .nav-links {
+    .nav {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 32px;
     }
 
-    .nav-links a {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
+    .nav a {
+      color: var(--text-gray);
+      font-size: 14px;
       font-weight: 500;
+      transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--text-primary); }
+    .nav a:hover { color: var(--text-white); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: white !important;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-white);
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .menu-btn { display: block; }
+    }
 
     /* Hero */
     .hero {
-      padding: 10rem 0 6rem;
+      padding: 100px 0 80px;
       text-align: center;
-      background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 50%, rgba(124, 58, 237, 0.1) 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 600px;
-      background: radial-gradient(ellipse, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-icon {
-      width: 112px;
-      height: 112px;
-      margin: 0 auto 2rem;
-      background: linear-gradient(135deg, var(--purple-500), var(--purple-700));
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      font-weight: 800;
-      box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
-      position: relative;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 107, 53, 0.15), transparent),
+        var(--bg-black);
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: clamp(40px, 8vw, 72px);
       font-weight: 800;
       line-height: 1.1;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(to right, var(--text-primary), var(--purple-300));
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--orange), var(--orange-light));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    @media (min-width: 768px) {
-      .hero h1 { font-size: 3.75rem; }
-    }
-
-    .hero-subtitle {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
-      max-width: 640px;
-      margin: 0 auto 2rem;
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-gray);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      font-family: 'JetBrains Mono', monospace;
       line-height: 1.7;
-    }
-
-    .hero-stat {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: rgba(124, 58, 237, 0.1);
-      border: 1px solid var(--border-color);
-      border-radius: 9999px;
-      padding: 0.5rem 1.25rem;
-      margin-bottom: 2rem;
-      font-size: 0.875rem;
-    }
-
-    .hero-stat-highlight {
-      color: var(--purple-400);
-      font-weight: 600;
-    }
-
-    .code-block {
-      background: var(--bg-darker);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .code-block .prompt { color: var(--purple-400); }
-    .code-block .command { color: var(--text-primary); }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
-      color: white;
-      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
-      color: white;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(124, 58, 237, 0.1);
-      border-color: var(--purple-500);
     }
 
     .hero-cta {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
       align-items: center;
-      margin-bottom: 1rem;
+      gap: 16px;
+      margin-bottom: 24px;
     }
 
-    @media (min-width: 640px) {
-      .hero-cta { flex-direction: row; justify-content: center; }
-    }
-
-    .hero-links {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-    }
-
-    .hero-links a { color: var(--purple-400); }
-
-    /* Sections */
-    section {
-      padding: 5rem 0;
-      border-top: 1px solid var(--border-color);
-    }
-
-    .section-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(124, 58, 237, 0.1);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      color: var(--purple-400);
-    }
-
-    .section-icon svg { width: 24px; height: 24px; }
-
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .section-desc {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-      max-width: 640px;
-      line-height: 1.7;
-    }
-
-    .section-link {
+    .btn-main {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-weight: 500;
-      color: var(--purple-400);
-    }
-
-    .section-link:hover { gap: 0.75rem; }
-
-    .section-link svg { width: 16px; height: 16px; transition: transform 0.2s; }
-    .section-link:hover svg { transform: translateX(4px); }
-
-    /* Process Flow */
-    .process-grid {
-      display: grid;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    @media (min-width: 768px) {
-      .process-grid { grid-template-columns: repeat(5, 1fr); }
-    }
-
-    .process-card {
-      background: var(--bg-darker);
-      border: 1px solid var(--border-color);
+      gap: 12px;
+      background: var(--orange);
+      color: white;
+      padding: 16px 32px;
       border-radius: 12px;
-      padding: 1.5rem;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-main:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-main svg {
+      transition: transform 0.2s;
+    }
+
+    .btn-main:hover svg {
+      transform: translateX(4px);
+    }
+
+    .install-hint {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .install-hint img, .install-hint svg {
+      height: 20px;
+      opacity: 0.7;
+    }
+
+    /* Code Demo */
+    .code-demo {
+      max-width: 700px;
+      margin: 60px auto 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .code-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .code-dot.red { background: #ff5f57; }
+    .code-dot.yellow { background: #febc2e; }
+    .code-dot.green { background: #28c840; }
+
+    .code-body {
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 12px;
+    }
+
+    .code-prompt { color: var(--orange); }
+    .code-cmd { color: var(--text-white); }
+    .code-flag { color: #a78bfa; }
+    .code-path { color: #4ade80; }
+
+    .code-output {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--text-gray);
+    }
+
+    .code-success { color: #4ade80; }
+    .code-warning { color: var(--orange); }
+
+    /* Stats Section */
+    .stats {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .stats-header h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .stats-header h2 .orange { color: var(--orange); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
       text-align: center;
       transition: all 0.2s;
     }
 
-    .process-card:hover {
-      border-color: var(--purple-500);
+    .stat-card:hover {
+      border-color: var(--border-hover);
       transform: translateY(-4px);
     }
 
-    .process-num {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, var(--purple-600), var(--purple-700));
+    .stat-value {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-gray);
+    }
+
+    /* Trust Logos */
+    .trust {
+      text-align: center;
+    }
+
+    .trust-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .trust-label span { color: var(--orange); }
+
+    .trust-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      opacity: 0.5;
+    }
+
+    .trust-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* Problem Section */
+    .problem {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bracket-box {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .bracket-box::before,
+    .bracket-box::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--border);
+    }
+
+    .bracket-box::before {
+      top: 0;
+      left: 0;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .bracket-box::after {
+      bottom: 0;
+      right: 0;
+      border-left: none;
+      border-top: none;
+    }
+
+    .problem h2 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .problem h2 .orange { color: var(--orange); }
+
+    .problem-text {
+      text-align: center;
+      color: var(--text-gray);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .features-header {
+      margin-bottom: 60px;
+    }
+
+    .features-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .features-header p {
+      color: var(--text-gray);
+      font-size: 16px;
+      max-width: 500px;
+    }
+
+    .features-header a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--orange);
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 16px;
+    }
+
+    .features-header a:hover { text-decoration: underline; }
+
+    .feature-cards {
+      display: grid;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .feature-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--orange);
+      background: var(--bg-card-hover);
+    }
+
+    .feature-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--text-gray);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* Process Section */
+    .process {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .process-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .process-header p {
+      color: var(--text-gray);
+      font-size: 16px;
+    }
+
+    .process-steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+    }
+
+    .process-step {
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+      padding: 32px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    .process-step:hover {
+      border-color: var(--orange);
+      transform: translateY(-4px);
+    }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      background: var(--orange);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1rem;
-      font-size: 0.875rem;
+      margin: 0 auto 16px;
       font-weight: 700;
+      font-size: 16px;
     }
 
-    .process-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+    .step-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
     }
 
-    .process-desc {
-      font-size: 0.8rem;
+    .step-desc {
+      font-size: 13px;
       color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Stats */
-    .stats-grid {
-      display: grid;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    @media (min-width: 640px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    .stat-card {
-      background: var(--bg-darker);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 2rem;
+    /* Speed Section */
+    .speed {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
       text-align: center;
     }
 
-    .stat-value {
-      font-size: 3rem;
+    .speed-big {
+      font-size: clamp(80px, 15vw, 160px);
       font-weight: 800;
-      background: linear-gradient(135deg, var(--purple-400), var(--purple-600));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 24px;
     }
 
-    .stat-label {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
+    .speed h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
     }
 
-    /* Features */
-    .features-grid {
-      display: grid;
-      gap: 1rem;
-      margin-top: 2rem;
+    .speed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
     }
 
-    @media (min-width: 640px) {
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (min-width: 768px) {
-      .features-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    .feature-card {
-      background: var(--bg-darker);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: all 0.2s;
-    }
-
-    .feature-card:hover {
-      border-color: var(--purple-500);
-    }
-
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-      background: rgba(124, 58, 237, 0.1);
-      border-radius: 10px;
+    .speed-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-      color: var(--purple-400);
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--text-gray);
     }
 
-    .feature-icon svg { width: 20px; height: 20px; }
-
-    .feature-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+    .speed-item svg {
+      color: var(--orange);
+      flex-shrink: 0;
     }
 
-    .feature-desc {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
+    /* CTA Section */
+    .cta {
+      padding: 100px 0;
+      text-align: center;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(255, 107, 53, 0.1), transparent),
+        var(--bg-black);
+    }
+
+    .cta h2 {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .cta h2 .orange { color: var(--orange); }
+
+    .cta p {
+      color: var(--text-gray);
+      font-size: 18px;
+      margin-bottom: 40px;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     /* Footer */
     .footer {
-      padding: 3rem 0;
-      border-top: 1px solid var(--border-color);
-      text-align: center;
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
     }
 
     .footer-links {
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 1.5rem;
+      gap: 32px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .footer-links a {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
+      color: var(--text-gray);
+      font-size: 14px;
+      transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: var(--text-primary); }
+    .footer-links a:hover { color: var(--text-white); }
 
     .footer-copy {
-      font-size: 0.8rem;
+      font-size: 13px;
       color: var(--text-muted);
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     .footer-social {
       display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      gap: 16px;
     }
 
     .footer-social a {
@@ -505,11 +701,35 @@
       transition: color 0.2s;
     }
 
-    .footer-social a:hover { color: var(--purple-400); }
-    .footer-social svg { width: 20px; height: 20px; }
+    .footer-social a:hover { color: var(--orange); }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .process-steps {
+        flex-direction: column;
+      }
+
+      .process-step {
+        min-width: auto;
+      }
+
+      .trust-logos {
+        gap: 24px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Announcement Banner -->
+  <div class="banner">
+    <a href="#">
+      $9.1B stolen from smart contracts. 90% were audited.
+      <span class="banner-arrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </a>
+  </div>
+
   <!-- Header -->
   <header class="header">
     <div class="container">
@@ -517,185 +737,228 @@
         <span class="logo-icon">V</span>
         VORA
       </a>
-      <nav class="nav-links">
-        <a href="#how-it-works">How It Works</a>
+      <nav class="nav">
         <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#">Docs</a>
         <a href="https://github.com" target="_blank">GitHub</a>
+        <a href="#" class="nav-cta">Get Started</a>
       </nav>
+      <button class="menu-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
     </div>
   </header>
 
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <div class="hero-icon">V</div>
-
-      <h1>Hunt vulnerabilities before attackers do</h1>
-
-      <p class="hero-subtitle">
-        AI-powered smart contract security that finds bugs, generates fixes, and submits PRs automatically. Auditors wait to be hired. Attackers don't. VORA hunts first.
+      <h1>
+        Auditors wait to be hired.<br>
+        <span class="highlight">Attackers don't.</span>
+      </h1>
+      <p class="hero-sub">
+        AI-powered smart contract security that finds bugs, generates fixes, and submits PRs automatically. VORA hunts first.
       </p>
-
-      <div class="hero-stat">
-        <span class="hero-stat-highlight">$9.1B</span> stolen from smart contracts — 90% were audited
-      </div>
-
-      <div class="code-block">
-        <span class="prompt">$</span>
-        <span class="command">npx vora scan ./contracts</span>
-      </div>
-
       <div class="hero-cta">
-        <a href="#get-started" class="btn btn-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-          Read the docs
+        <a href="#" class="btn-main">
+          Try it for free
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="https://github.com" target="_blank" class="btn btn-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          View on GitHub
-        </a>
+        <div class="install-hint">
+          <span>2-click install</span>
+          <svg viewBox="0 0 24 24" fill="currentColor" height="20"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span>|</span>
+          <svg viewBox="0 0 24 24" fill="currentColor" height="20"><path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"/></svg>
+        </div>
       </div>
 
-      <div class="hero-links">
-        <span>Currently in alpha</span>
-        <span>·</span>
-        <a href="#">Join waitlist</a>
+      <!-- Code Demo -->
+      <div class="code-demo">
+        <div class="code-header">
+          <span class="code-dot red"></span>
+          <span class="code-dot yellow"></span>
+          <span class="code-dot green"></span>
+        </div>
+        <div class="code-body">
+          <div class="code-line">
+            <span class="code-prompt">$</span>
+            <span class="code-cmd">npx</span>
+            <span class="code-flag">vora</span>
+            <span class="code-cmd">scan</span>
+            <span class="code-path">./contracts</span>
+          </div>
+          <div class="code-output">
+            <div><span class="code-warning">!</span> Scanning 47 contracts...</div>
+            <div><span class="code-success">&#10003;</span> Found 3 vulnerabilities</div>
+            <div><span class="code-success">&#10003;</span> Generated fixes</div>
+            <div><span class="code-success">&#10003;</span> PR submitted to GitHub</div>
+            <div style="margin-top: 8px; color: var(--text-muted);">Completed in <span class="code-warning">47 seconds</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section id="how-it-works">
+  <!-- Stats -->
+  <section class="stats">
     <div class="container">
-      <div class="section-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+      <div class="stats-header">
+        <h2>The leader in <span class="orange">AI security</span></h2>
       </div>
-      <h2 class="section-title">Hunt first. Prove value. Then get paid.</h2>
-      <p class="section-desc">
-        VORA's AI continuously scans repositories, finds vulnerabilities, generates fixes, and verifies solutions work—all in seconds.
-      </p>
-      <a href="#" class="section-link">
-        Learn how it works
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-      </a>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">2K+</div>
+          <div class="stat-label">Audits Analyzed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">$150B+</div>
+          <div class="stat-label">DeFi TVL at Risk</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">87M+</div>
+          <div class="stat-label">Smart Contracts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">47s</div>
+          <div class="stat-label">Average Detection</div>
+        </div>
+      </div>
 
-      <div class="process-grid">
-        <div class="process-card">
-          <div class="process-num">1</div>
-          <h3 class="process-title">HUNT</h3>
-          <p class="process-desc">Scan repos for vulnerabilities</p>
+      <div class="trust">
+        <p class="trust-label">Built for teams who ship <span>fast</span></p>
+        <div class="trust-logos">
+          <span class="trust-logo">ETHEREUM</span>
+          <span class="trust-logo">POLYGON</span>
+          <span class="trust-logo">ARBITRUM</span>
+          <span class="trust-logo">OPTIMISM</span>
+          <span class="trust-logo">BASE</span>
         </div>
-        <div class="process-card">
-          <div class="process-num">2</div>
-          <h3 class="process-title">FIND</h3>
-          <p class="process-desc">AI trained on 2,000+ audits</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Statement -->
+  <section class="problem">
+    <div class="container">
+      <div class="bracket-box">
+        <h2>
+          Smart contract audits were slow before.<br>
+          Now they feel <span class="orange">impossible.</span>
+        </h2>
+        <p class="problem-text">
+          Your team ships fast with AI. But security shouldn't mean slow. We make sure every contract earns its deployment—in seconds, not weeks.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-header">
+        <h2>Faster audits + better security.</h2>
+        <p>We do the heavy lifting & find what others miss. You verify the final 10%.</p>
+        <a href="#">
+          See a sample report
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-label">//AI Detection</div>
+          <h3>Find what auditors miss.</h3>
+          <p>Trained on 2,000+ real security audits. Our AI catches vulnerabilities that pattern matching tools can't see.</p>
         </div>
-        <div class="process-card">
-          <div class="process-num">3</div>
-          <h3 class="process-title">FIX</h3>
-          <p class="process-desc">Generate real fixes, not reports</p>
+        <div class="feature-card">
+          <div class="feature-label">//Auto Fixes</div>
+          <h3>Fixes, not just reports.</h3>
+          <p>1-click commits for simple fixes and a "Fix with AI" button for complex vulnerabilities. Ship secure code faster.</p>
         </div>
-        <div class="process-card">
-          <div class="process-num">4</div>
-          <h3 class="process-title">PROVE</h3>
-          <p class="process-desc">Verify solutions work</p>
+        <div class="feature-card">
+          <div class="feature-label">//GitHub Integration</div>
+          <h3>PRs appear automatically.</h3>
+          <p>Seamless workflow integration. Vulnerabilities found, fixes generated, and PRs submitted—all without leaving your repo.</p>
         </div>
-        <div class="process-card">
-          <div class="process-num">5</div>
-          <h3 class="process-title">EARN</h3>
-          <p class="process-desc">Get paid for results</p>
+        <div class="feature-card">
+          <div class="feature-label">//Verification</div>
+          <h3>Every fix proven to work.</h3>
+          <p>We don't just suggest fixes. Every solution is verified against the original vulnerability before submission.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process" id="how-it-works">
+    <div class="container">
+      <div class="process-header">
+        <h2>Hunt first. Prove value. Get paid.</h2>
+        <p>Five steps from vulnerable to secure.</p>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-num">1</div>
+          <div class="step-title">HUNT</div>
+          <div class="step-desc">Scan repos for vulnerabilities</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">2</div>
+          <div class="step-title">FIND</div>
+          <div class="step-desc">AI trained on 2,000+ audits</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">3</div>
+          <div class="step-title">FIX</div>
+          <div class="step-desc">Generate real fixes, not reports</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">4</div>
+          <div class="step-title">PROVE</div>
+          <div class="step-desc">Verify solutions work</div>
+        </div>
+        <div class="process-step">
+          <div class="step-num">5</div>
+          <div class="step-title">EARN</div>
+          <div class="step-desc">Pay for results only</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Speed -->
-  <section>
+  <section class="speed">
     <div class="container">
-      <div class="section-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      </div>
-      <h2 class="section-title">47 seconds to detect, fix, and submit</h2>
-      <p class="section-desc">
-        Bug detected in 47 seconds. Fix generated automatically. PR submitted directly to GitHub. This is the speed attackers operate at—now you can too.
-      </p>
-      <a href="#" class="section-link">
-        See it in action
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-      </a>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value">$150B+</div>
-          <p class="stat-label">in DeFi TVL at risk</p>
+      <div class="speed-big">47s</div>
+      <h2>Time to detect, fix, and submit.</h2>
+      <div class="speed-list">
+        <div class="speed-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Bug detected in 47 seconds</span>
         </div>
-        <div class="stat-card">
-          <div class="stat-value">87M+</div>
-          <p class="stat-label">smart contracts on Ethereum</p>
+        <div class="speed-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Fix generated automatically</span>
+        </div>
+        <div class="speed-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>PR submitted directly to GitHub</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features -->
-  <section id="features">
+  <!-- CTA -->
+  <section class="cta">
     <div class="container">
-      <div class="section-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-      </div>
-      <h2 class="section-title">Built for smart contract security</h2>
-      <p class="section-desc">
-        AI-powered detection that goes beyond pattern matching to find vulnerabilities that auditors miss.
-      </p>
-      <a href="#" class="section-link">
-        Explore all features
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+      <h2>The window is open.<br><span class="orange">First mover wins.</span></h2>
+      <p>Start hunting vulnerabilities before attackers do.</p>
+      <a href="#" class="btn-main">
+        Get started free
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-          </div>
-          <h3 class="feature-title">AI-Powered Detection</h3>
-          <p class="feature-desc">Trained on 2,000+ real audits to find what others miss.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
-          </div>
-          <h3 class="feature-title">Automatic Fixes</h3>
-          <p class="feature-desc">Not just reports—real fixes submitted as PRs.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-          </div>
-          <h3 class="feature-title">Lightning Fast</h3>
-          <p class="feature-desc">Seconds, not weeks. Stay ahead of attackers.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-          </div>
-          <h3 class="feature-title">Verified Solutions</h3>
-          <p class="feature-desc">Every fix proven to work before submission.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-          </div>
-          <h3 class="feature-title">GitHub Integration</h3>
-          <p class="feature-desc">Seamless workflow. PRs appear automatically.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-          </div>
-          <h3 class="feature-title">Pay for Results</h3>
-          <p class="feature-desc">Only pay when real bugs are found and fixed.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -703,19 +966,21 @@
   <footer class="footer">
     <div class="container">
       <nav class="footer-links">
-        <a href="#how-it-works">How It Works</a>
         <a href="#features">Features</a>
-        <a href="#">Docs</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#">Documentation</a>
         <a href="#">Blog</a>
         <a href="https://github.com" target="_blank">GitHub</a>
       </nav>
-      <p class="footer-copy">© 2025 VORA. The model is broken—auditors wait, attackers hunt. VORA hunts first.</p>
+      <p class="footer-copy">
+        &copy; 2025 VORA. The model is broken—auditors wait, attackers hunt. VORA hunts first.
+      </p>
       <div class="footer-social">
-        <a href="https://github.com" target="_blank" aria-label="GitHub">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <a href="https://github.com" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         </a>
-        <a href="https://twitter.com" target="_blank" aria-label="Twitter">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <a href="https://twitter.com" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
       </div>
     </div>
