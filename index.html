@@ -811,6 +811,131 @@
 
     .footer-social a:hover { color: var(--accent); }
 
+    /* Large VORA Brand Section */
+    .brand-section {
+      padding: 60px 0 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .brand-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .brand-text {
+      font-size: clamp(80px, 20vw, 280px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-align: center;
+      position: relative;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .brand-text svg {
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .brand-text .letter-stroke {
+      fill: none;
+      stroke: url(#brandGradient);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.6;
+      animation: strokePulse 4s ease-in-out infinite;
+    }
+
+    .brand-text .letter-stroke:nth-child(2) { animation-delay: 0.5s; }
+    .brand-text .letter-stroke:nth-child(3) { animation-delay: 1s; }
+    .brand-text .letter-stroke:nth-child(4) { animation-delay: 1.5s; }
+
+    @keyframes strokePulse {
+      0%, 100% { opacity: 0.4; stroke-width: 1.5; }
+      50% { opacity: 0.8; stroke-width: 2; }
+    }
+
+    .brand-text .glow-layer {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 3;
+      opacity: 0;
+      filter: blur(8px);
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+
+    .brand-text .glow-layer:nth-child(2) { animation-delay: 0.5s; }
+    .brand-text .glow-layer:nth-child(3) { animation-delay: 1s; }
+    .brand-text .glow-layer:nth-child(4) { animation-delay: 1.5s; }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 0.3; }
+    }
+
+    .brand-scan-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .brand-scan-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+      animation: scanAcross 6s ease-in-out infinite;
+    }
+
+    @keyframes scanAcross {
+      0% { left: -50%; }
+      100% { left: 150%; }
+    }
+
+    .brand-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 20%, transparent 70%);
+    }
+
+    /* Snake animation in brand */
+    .brand-snake {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+      opacity: 0.15;
+      animation: snakeFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes snakeFloat {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50% { transform: translateY(-50%) translateX(20px); }
+    }
+
     /* Hero Visual - Animated Panels */
     .hero-visual {
       position: relative;
@@ -1793,6 +1918,47 @@
           Read Documentation
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- Large Brand Section -->
+  <section class="brand-section">
+    <div class="brand-grid"></div>
+    <div class="brand-scan-line"></div>
+    <div class="brand-text">
+      <svg viewBox="0 0 500 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.3"/>
+            <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.3"/>
+            <animate attributeName="x1" values="-100%;100%" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="0%;200%" dur="3s" repeatCount="indefinite"/>
+          </linearGradient>
+        </defs>
+        <!-- V -->
+        <path class="glow-layer" d="M20 15 L60 105 L100 15" stroke-width="4"/>
+        <path class="letter-stroke" d="M20 15 L60 105 L100 15"/>
+        <!-- O -->
+        <path class="glow-layer" d="M130 60 A45 45 0 1 1 130 59.9" stroke-width="4"/>
+        <path class="letter-stroke" d="M130 60 A45 45 0 1 1 130 59.9"/>
+        <!-- R -->
+        <path class="glow-layer" d="M230 105 L230 15 L280 15 A30 30 0 0 1 280 60 L230 60 L290 105" stroke-width="4"/>
+        <path class="letter-stroke" d="M230 105 L230 15 L280 15 A30 30 0 0 1 280 60 L230 60 L290 105"/>
+        <!-- A -->
+        <path class="glow-layer" d="M320 105 L360 15 L400 105 M335 70 L385 70" stroke-width="4"/>
+        <path class="letter-stroke" d="M320 105 L360 15 L400 105 M335 70 L385 70"/>
+        <!-- Animated particles -->
+        <circle r="2" fill="#00d4ff" opacity="0.6">
+          <animate attributeName="cx" values="60;175;310;360;60" dur="8s" repeatCount="indefinite"/>
+          <animate attributeName="cy" values="60;60;60;60;60" dur="8s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.6;0.8;0.6;0.8;0.6" dur="8s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="1.5" fill="#00d4ff" opacity="0.4">
+          <animate attributeName="cx" values="100;230;360;175;100" dur="10s" repeatCount="indefinite"/>
+          <animate attributeName="cy" values="40;80;40;80;40" dur="10s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
     </div>
   </section>
 
