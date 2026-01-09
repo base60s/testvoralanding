@@ -10,7 +10,7 @@
   <meta property="og:description" content="Static analysis and ML-based vulnerability detection for Solidity smart contracts.">
   <meta property="og:type" content="website">
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2300d4ff'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold' font-size='18'>V</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2300d4ff'/><path d='M8 8c0 0 2 1 3 3c1.5 3 5 12 5 12s3.5-9 5-12c1-2 3-3 3-3' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='9' cy='9' r='1.5' fill='white'/><circle cx='7' cy='8' r='1' fill='white'/></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -89,8 +89,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 16px;
+      padding: 4px;
+    }
+
+    .logo-icon svg {
+      width: 100%;
+      height: 100%;
     }
 
     .nav {
@@ -766,8 +770,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 11px;
+      padding: 3px;
+    }
+
+    .vora-badge svg {
+      width: 100%;
+      height: 100%;
     }
 
     .panel-label {
@@ -1043,8 +1051,12 @@
 
     .chat-avatar.vora {
       background: var(--accent);
-      font-weight: 700;
-      font-size: 9px;
+      padding: 2px;
+    }
+
+    .chat-avatar.vora svg {
+      width: 100%;
+      height: 100%;
     }
 
     .chat-name {
@@ -1169,7 +1181,7 @@
   <header class="header">
     <div class="container">
       <a href="/" class="logo">
-        <span class="logo-icon">V</span>
+        <span class="logo-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5c0 0 1.5 0.8 2.2 2.2c1.2 2.4 4.8 11.8 4.8 11.8s3.6-9.4 4.8-11.8c0.7-1.4 2.2-2.2 2.2-2.2" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="6" r="1.2" fill="white"/><circle cx="4.2" cy="5" r="0.8" fill="white"/></svg></span>
         VORA
       </a>
       <nav class="nav">
@@ -1224,7 +1236,7 @@
         <!-- Left Panel: Sequence -->
         <div class="hero-panel panel-left">
           <div class="panel-header">
-            <span class="vora-badge">V</span>
+            <span class="vora-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5c0 0 1.5 0.8 2.2 2.2c1.2 2.4 4.8 11.8 4.8 11.8s3.6-9.4 4.8-11.8c0.7-1.4 2.2-2.2 2.2-2.2" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="6" r="1.2" fill="white"/><circle cx="4.2" cy="5" r="0.8" fill="white"/></svg></span>
             <span class="panel-label">vora</span>
             <span class="panel-tag">bot</span>
             <span class="panel-time">scanning...</span>
@@ -1242,7 +1254,7 @@
         <!-- Middle Panel: Vulnerability -->
         <div class="hero-panel panel-middle">
           <div class="panel-header">
-            <span class="vora-badge">V</span>
+            <span class="vora-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5c0 0 1.5 0.8 2.2 2.2c1.2 2.4 4.8 11.8 4.8 11.8s3.6-9.4 4.8-11.8c0.7-1.4 2.2-2.2 2.2-2.2" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="6" r="1.2" fill="white"/><circle cx="4.2" cy="5" r="0.8" fill="white"/></svg></span>
             <span class="panel-label">vora</span>
             <span class="panel-tag">bot</span>
             <span class="panel-time">just now</span>
@@ -1274,7 +1286,7 @@
           </div>
           <div class="chat-msg bot">
             <div class="chat-header">
-              <span class="chat-avatar vora">V</span>
+              <span class="chat-avatar vora"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5c0 0 1.5 0.8 2.2 2.2c1.2 2.4 4.8 11.8 4.8 11.8s3.6-9.4 4.8-11.8c0.7-1.4 2.2-2.2 2.2-2.2" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="6" r="1.2" fill="white"/><circle cx="4.2" cy="5" r="0.8" fill="white"/></svg></span>
               <span class="chat-name">vora</span>
               <span class="chat-tag">bot</span>
               <span class="chat-time">1 min ago</span>
