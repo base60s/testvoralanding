@@ -1939,21 +1939,30 @@
         <!-- V (Snake) -->
         <g class="snake-v">
           <!-- Snake body glow -->
-          <path class="glow-layer" d="M25 15 C25 35 35 55 50 75 C58 88 60 98 60 105 C60 98 62 88 70 75 C85 55 95 35 95 15" stroke-width="5"/>
-          <!-- Snake body -->
-          <path class="letter-stroke" d="M25 15 C25 35 35 55 50 75 C58 88 60 98 60 105 C60 98 62 88 70 75 C85 55 95 35 95 15"/>
+          <path class="glow-layer" d="M30 10 C30 25 38 45 50 65 C56 78 60 95 60 105 C60 95 64 78 70 65 C82 45 90 25 90 10" stroke-width="6"/>
+          <!-- Snake body main stroke -->
+          <path class="letter-stroke" d="M30 10 C30 25 38 45 50 65 C56 78 60 95 60 105 C60 95 64 78 70 65 C82 45 90 25 90 10" stroke-width="2.5"/>
           <!-- Scale pattern overlay -->
-          <path class="letter-stroke" d="M25 15 C25 35 35 55 50 75 C58 88 60 98 60 105 C60 98 62 88 70 75 C85 55 95 35 95 15" stroke-dasharray="3 5" opacity="0.4"/>
-          <!-- Snake head -->
-          <ellipse cx="18" cy="18" rx="14" ry="10" fill="none" stroke="url(#brandGradient)" stroke-width="1.5"/>
-          <!-- Snake eye background -->
-          <ellipse cx="14" cy="15" rx="5" ry="6" fill="#005566" opacity="0.5"/>
-          <!-- Snake eye pupil (vertical slit) -->
-          <ellipse cx="14" cy="15" rx="1.5" ry="5" fill="#00d4ff" opacity="0.8"/>
-          <!-- Snake tongue with animation -->
-          <path d="M4 22 Q-4 17 -10 12 M4 22 Q-4 25 -10 32" stroke="#ff6b6b" stroke-width="1.5" stroke-linecap="round" fill="none">
-            <animate attributeName="d" values="M4 22 Q-4 17 -10 12 M4 22 Q-4 25 -10 32;M4 22 Q-6 18 -14 14 M4 22 Q-6 24 -14 30;M4 22 Q-4 17 -10 12 M4 22 Q-4 25 -10 32" dur="1.5s" repeatCount="indefinite"/>
-          </path>
+          <path stroke="url(#brandGradient)" fill="none" d="M30 10 C30 25 38 45 50 65 C56 78 60 95 60 105 C60 95 64 78 70 65 C82 45 90 25 90 10" stroke-width="1" stroke-dasharray="4 6" opacity="0.5"/>
+          <!-- Snake head (triangular/elliptical) -->
+          <path d="M10 18 L30 10 L22 0 Z" fill="url(#brandGradient)" opacity="0.2"/>
+          <ellipse cx="22" cy="12" rx="15" ry="11" fill="none" stroke="url(#brandGradient)" stroke-width="2"/>
+          <!-- Snake eye -->
+          <ellipse cx="17" cy="10" rx="5" ry="7" fill="#004455" opacity="0.8"/>
+          <ellipse cx="17" cy="10" rx="2" ry="6" fill="#00d4ff" opacity="0.9">
+            <animate attributeName="opacity" values="0.9;0.5;0.9" dur="3s" repeatCount="indefinite"/>
+          </ellipse>
+          <!-- Second eye highlight -->
+          <circle cx="15" cy="8" r="1.5" fill="#00ffff" opacity="0.4"/>
+          <!-- Snake tongue with flick animation -->
+          <g>
+            <path d="M7 16 L-5 10" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" fill="none">
+              <animate attributeName="d" values="M7 16 L-5 10;M7 16 L-12 8;M7 16 L-5 10" dur="0.8s" repeatCount="indefinite"/>
+            </path>
+            <path d="M7 16 L-5 22" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" fill="none">
+              <animate attributeName="d" values="M7 16 L-5 22;M7 16 L-12 26;M7 16 L-5 22" dur="0.8s" repeatCount="indefinite"/>
+            </path>
+          </g>
         </g>
         <!-- O -->
         <path class="glow-layer" d="M130 60 A45 45 0 1 1 130 59.9" stroke-width="4"/>
