@@ -10,7 +10,7 @@
   <meta property="og:description" content="Static analysis and ML-based vulnerability detection for Solidity smart contracts.">
   <meta property="og:type" content="website">
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff6b35'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold' font-size='18'>V</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2300d4ff'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold' font-size='18'>V</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,9 +18,9 @@
 
   <style>
     :root {
-      --orange: #ff6b35;
-      --orange-dark: #e85a2a;
-      --orange-glow: rgba(255, 107, 53, 0.4);
+      --accent: #00d4ff;
+      --accent-dark: #00b8e6;
+      --accent-glow: rgba(0, 212, 255, 0.4);
       --green: #22c55e;
       --red: #ef4444;
       --yellow: #eab308;
@@ -84,7 +84,7 @@
     .logo-icon {
       width: 32px;
       height: 32px;
-      background: var(--orange);
+      background: var(--accent);
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -126,7 +126,7 @@
       padding: 80px 0 60px;
       text-align: center;
       background:
-        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255, 107, 53, 0.08), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0, 212, 255, 0.08), transparent 60%),
         var(--bg);
     }
 
@@ -164,7 +164,7 @@
     }
 
     .install-box .dollar { color: var(--text-muted); }
-    .install-box .cmd { color: var(--orange); }
+    .install-box .cmd { color: var(--accent); }
     .install-box .pkg { color: var(--text); }
 
     .install-box .copy-btn {
@@ -213,7 +213,7 @@
     .btn-primary .arrow {
       width: 28px;
       height: 28px;
-      background: var(--orange);
+      background: var(--accent);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -255,12 +255,12 @@
     }
 
     .hero-meta a {
-      color: var(--orange);
+      color: var(--accent);
       text-decoration: underline;
       text-underline-offset: 2px;
     }
 
-    .hero-meta a:hover { color: var(--orange-dark); }
+    .hero-meta a:hover { color: var(--accent-dark); }
 
     /* Terminal Demo */
     .terminal {
@@ -315,10 +315,10 @@
     .terminal-line .path { color: var(--yellow); }
     .terminal-line .comment { color: var(--text-muted); }
     .terminal-line .success { color: var(--green); }
-    .terminal-line .warning { color: var(--orange); }
+    .terminal-line .warning { color: var(--accent); }
     .terminal-line .error { color: var(--red); }
     .terminal-line .info { color: var(--text-secondary); }
-    .terminal-line .highlight { color: var(--orange); font-weight: 600; }
+    .terminal-line .highlight { color: var(--accent); font-weight: 600; }
 
     /* Detections */
     .detections {
@@ -371,7 +371,7 @@
     }
 
     .detection-severity.critical { background: rgba(239, 68, 68, 0.15); color: var(--red); }
-    .detection-severity.high { background: rgba(255, 107, 53, 0.15); color: var(--orange); }
+    .detection-severity.high { background: rgba(0, 212, 255, 0.15); color: var(--accent); }
     .detection-severity.medium { background: rgba(234, 179, 8, 0.15); color: var(--yellow); }
 
     .detection-name {
@@ -420,7 +420,7 @@
     .step-num {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
-      color: var(--orange);
+      color: var(--accent);
       margin-bottom: 12px;
     }
 
@@ -442,7 +442,7 @@
       background: var(--bg-elevated);
       padding: 2px 6px;
       border-radius: 4px;
-      color: var(--orange);
+      color: var(--accent);
     }
 
     /* Code Example */
@@ -518,7 +518,7 @@
     .code-line .code { color: var(--text-secondary); }
     .code-line .keyword { color: var(--purple); }
     .code-line .fn { color: #60a5fa; }
-    .code-line .type { color: var(--orange); }
+    .code-line .type { color: var(--accent); }
     .code-line .str { color: var(--green); }
     .code-line .comment { color: var(--text-muted); font-style: italic; }
     .code-line.vulnerable { background: rgba(239, 68, 68, 0.1); margin: 0 -16px; padding: 0 16px; }
@@ -631,7 +631,7 @@
     }
 
     .cta-install .dollar { color: var(--text-muted); }
-    .cta-install .cmd { color: var(--orange); }
+    .cta-install .cmd { color: var(--accent); }
 
     /* Footer */
     .footer {
@@ -676,7 +676,7 @@
       color: var(--text-muted);
     }
 
-    .footer-social a:hover { color: var(--orange); }
+    .footer-social a:hover { color: var(--accent); }
 
     /* Hero Visual - Animated Panels */
     .hero-visual {
@@ -702,8 +702,8 @@
       position: absolute;
       inset: -40px;
       background-image:
-        linear-gradient(rgba(255, 107, 53, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 107, 53, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
       background-size: 40px 40px;
       pointer-events: none;
       mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%);
@@ -761,7 +761,7 @@
     .vora-badge {
       width: 20px;
       height: 20px;
-      background: var(--orange);
+      background: var(--accent);
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -817,9 +817,9 @@
     }
 
     .seq-node.highlight {
-      border-color: var(--orange);
-      color: var(--orange);
-      background: rgba(255, 107, 53, 0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0, 212, 255, 0.1);
     }
 
     .seq-arrow {
@@ -829,7 +829,7 @@
 
     @keyframes arrowPulse {
       0%, 100% { opacity: 0.4; }
-      50% { opacity: 1; color: var(--orange); }
+      50% { opacity: 1; color: var(--accent); }
     }
 
     /* Vulnerability Alert */
@@ -905,7 +905,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--orange);
+      background: var(--accent);
       color: white;
       padding: 6px 12px;
       border-radius: 6px;
@@ -917,7 +917,7 @@
 
     .commit-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 212, 255, 0.4);
     }
 
     /* Chat Messages */
@@ -929,7 +929,7 @@
     }
 
     .chat-msg.bot {
-      border-left: 2px solid var(--orange);
+      border-left: 2px solid var(--accent);
     }
 
     .chat-header {
@@ -956,7 +956,7 @@
     }
 
     .chat-avatar.vora {
-      background: var(--orange);
+      background: var(--accent);
       font-weight: 700;
       font-size: 9px;
     }
@@ -1026,7 +1026,7 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <h1>Cut audit time & vulnerabilities<br>in half. Instantly.</h1>
+      <h1>Cut Audit Time & Smart Contract<br>Vulnerabilities in Real-Time</h1>
       <p class="hero-sub">ML-based security scanner for Solidity. Trained on 2,000+ audits.</p>
 
       <div class="install-box">
