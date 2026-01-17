@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIT License | VORA</title>
+  <meta name="description" content="VORA is licensed under the MIT License. Copyright 2026 Chroma Labs.">
+
+  <meta property="og:title" content="MIT License | VORA">
+  <meta property="og:description" content="VORA is licensed under the MIT License.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2300d4ff'/><path d='M8 5C8 8 9 11 11 14C13 18 16 26 16 26C16 26 19 18 21 14C23 11 24 8 24 5' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/><path d='M8 5C8 8 9 11 11 14C13 18 16 26 16 26C16 26 19 18 21 14C23 11 24 8 24 5' stroke='%2300a8cc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none' stroke-dasharray='2 3'/><path d='M4 6L8 5L6 3Z' fill='white'/><ellipse cx='6' cy='5.5' rx='2.5' ry='2' fill='white'/><ellipse cx='5.5' cy='5' rx='1' ry='1.5' fill='%23005566'/><ellipse cx='5.5' cy='5' rx='0.3' ry='1.2' fill='black'/><path d='M3 6.5Q1 5.5 0.5 5M3 6.5Q1 7 0.5 8' stroke='%23ff6b6b' stroke-width='0.8' stroke-linecap='round' fill='none'/></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #00d4ff;
+      --accent-dark: #00b8e6;
+      --accent-glow: rgba(0, 212, 255, 0.4);
+      --bg: #0a0a0a;
+      --bg-card: #0f0f0f;
+      --border: #1f1f1f;
+      --text: #ffffff;
+      --text-secondary: #a1a1aa;
+      --text-muted: #52525b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    .header {
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .logo:hover { text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .logo-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav a {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover { color: var(--text); text-decoration: none; }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: 64px 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 32px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .license-header {
+      margin-bottom: 48px;
+    }
+
+    .license-header h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .license-header p {
+      color: var(--text-secondary);
+      font-size: 18px;
+    }
+
+    .license-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .license-card h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--accent);
+    }
+
+    .copyright {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .license-text {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .license-text p {
+      margin-bottom: 16px;
+    }
+
+    .license-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-copy {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 640px) {
+      .license-header h1 {
+        font-size: 28px;
+      }
+      .license-card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M8 5C8 8 9 11 11 14C13 18 16 26 16 26C16 26 19 18 21 14C23 11 24 8 24 5" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 5C8 8 9 11 11 14C13 18 16 26 16 26C16 26 19 18 21 14C23 11 24 8 24 5" stroke="#00a8cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 3"/>
+            <path d="M4 6L8 5L6 3Z" fill="white"/>
+            <ellipse cx="6" cy="5.5" rx="2.5" ry="2" fill="white"/>
+            <ellipse cx="5.5" cy="5" rx="1" ry="1.5" fill="#005566"/>
+            <ellipse cx="5.5" cy="5" rx="0.3" ry="1.2" fill="black"/>
+            <path d="M3 6.5Q1 5.5 0.5 5M3 6.5Q1 7 0.5 8" stroke="#ff6b6b" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+          </svg>
+        </span>
+        VORA
+      </a>
+      <nav class="nav">
+        <a href="docs.html">Docs</a>
+        <a href="agent-docs.html">Agent API</a>
+        <a href="https://github.com/base60s/vora" target="_blank">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <a href="index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Home
+      </a>
+
+      <div class="license-header">
+        <h1>MIT License</h1>
+        <p>VORA is open source software licensed under the MIT License.</p>
+      </div>
+
+      <div class="license-card">
+        <h2>The MIT License</h2>
+
+        <p class="copyright">Copyright (c) 2026 Chroma Labs</p>
+
+        <div class="license-text">
+          <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+          <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+          <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-copy">&copy; 2026 Chroma Labs. MIT License.</p>
+    </div>
+  </footer>
+</body>
+</html>
