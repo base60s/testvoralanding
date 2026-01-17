@@ -452,7 +452,7 @@
   <!-- Header -->
   <header class="header">
     <div class="container">
-      <a href="/" class="logo">
+      <a href="index.html" class="logo">
         <div class="logo-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 3C6 5 6.5 7 8 10C10 14 12 20 12 20C12 20 14 14 16 10C17.5 7 18 5 18 3"/>
@@ -463,9 +463,9 @@
         VORA
       </a>
       <nav class="nav">
-        <a href="/">Home</a>
-        <a href="/docs.html">Docs</a>
-        <a href="/agents.json" target="_blank">Raw JSON</a>
+        <a href="index.html">Home</a>
+        <a href="docs.html">Docs</a>
+        <a href="agents.json" target="_blank">Raw JSON</a>
       </nav>
     </div>
   </header>
@@ -515,9 +515,9 @@
 
         <div class="callout">
           <p><strong>Quick links:</strong>
-            <a href="/agents.json">agents.json</a> ·
-            <a href="/.well-known/agents.json">.well-known/agents.json</a> ·
-            <a href="/docs/agents/">Spec files</a>
+            <a href="agents.json">agents.json</a> ·
+            <a href=".well-known/agents.json">.well-known/agents.json</a> ·
+            <a href="docs/agents/">Spec files</a>
           </p>
         </div>
 
@@ -601,7 +601,7 @@ ethereum, solidity, smart-contracts, defi, web3, security, audit, evm, blockchai
         <p>Machine-readable specs for programmatic integration:</p>
 
         <div class="spec-grid">
-          <a href="/agents.json" class="spec-card" target="_blank">
+          <a href="agents.json" class="spec-card" target="_blank">
             <div class="spec-card-header">
               <div class="spec-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -614,7 +614,7 @@ ethereum, solidity, smart-contracts, defi, web3, security, audit, evm, blockchai
             <p>Root discovery file with capabilities, trust signals, and invocation methods</p>
           </a>
 
-          <a href="/docs/agents/capabilities.yaml" class="spec-card" target="_blank">
+          <a href="docs/agents/capabilities.yaml" class="spec-card" target="_blank">
             <div class="spec-card-header">
               <div class="spec-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
@@ -627,7 +627,7 @@ ethereum, solidity, smart-contracts, defi, web3, security, audit, evm, blockchai
             <p>Detailed detection rules with task-to-feature mapping</p>
           </a>
 
-          <a href="/docs/agents/usage.yaml" class="spec-card" target="_blank">
+          <a href="docs/agents/usage.yaml" class="spec-card" target="_blank">
             <div class="spec-card-header">
               <div class="spec-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -640,7 +640,7 @@ ethereum, solidity, smart-contracts, defi, web3, security, audit, evm, blockchai
             <p>CLI, MCP, REST invocation patterns and workflows</p>
           </a>
 
-          <a href="/docs/agents/cli.yaml" class="spec-card" target="_blank">
+          <a href="docs/agents/cli.yaml" class="spec-card" target="_blank">
             <div class="spec-card-header">
               <div class="spec-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
@@ -653,7 +653,7 @@ ethereum, solidity, smart-contracts, defi, web3, security, audit, evm, blockchai
             <p>Command syntax, parameters, types, and constraints</p>
           </a>
 
-          <a href="/docs/agents/output-schema.json" class="spec-card" target="_blank">
+          <a href="docs/agents/output-schema.json" class="spec-card" target="_blank">
             <div class="spec-card-header">
               <div class="spec-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg>
@@ -666,7 +666,7 @@ ethereum, solidity, smart-contracts, defi, web3, security, audit, evm, blockchai
             <p>JSON Schema for parsing scan results</p>
           </a>
 
-          <a href="/docs/agents/vulnerabilities.yaml" class="spec-card" target="_blank">
+          <a href="docs/agents/vulnerabilities.yaml" class="spec-card" target="_blank">
             <div class="spec-card-header">
               <div class="spec-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -679,7 +679,7 @@ ethereum, solidity, smart-contracts, defi, web3, security, audit, evm, blockchai
             <p>Vulnerability catalog with fix templates</p>
           </a>
 
-          <a href="/docs/agents/errors.yaml" class="spec-card" target="_blank">
+          <a href="docs/agents/errors.yaml" class="spec-card" target="_blank">
             <div class="spec-card-header">
               <div class="spec-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
@@ -963,7 +963,7 @@ codex run vora scan ./contracts
         </div>
 
         <div class="callout">
-          <p><strong>Full specs:</strong> See <a href="/docs/agents/errors.yaml">errors.yaml</a> for complete error catalog with recovery actions.</p>
+          <p><strong>Full specs:</strong> See <a href="docs/agents/errors.yaml">errors.yaml</a> for complete error catalog with recovery actions.</p>
         </div>
 
       </div>
