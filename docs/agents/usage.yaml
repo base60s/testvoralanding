@@ -1,0 +1,199 @@
+# VORA Usage / Transport Methods
+# How agents can invoke VORA through different transport methods
+
+transports:
+  cli:
+    description: Command-line invocation via npx
+    invoke: "npx vora scan <path> [options]"
+    async: false
+    spec: "/docs/agents/cli.yaml"
+    examples:
+      - command: "npx vora scan ./contracts"
+        description: Scan all Solidity files in contracts directory
+      - command: "npx vora scan ./contracts --output json"
+        description: Get JSON output for CI integration
+      - command: "npx vora scan ./contracts --fix --severity critical"
+        description: Auto-fix critical issues
+
+  mcp:
+    description: Model Context Protocol server for AI agents
+    server: "npx vora mcp-server"
+    tools:
+      scan:
+        name: vora_scan
+        description: Scan Solidity files for vulnerabilities
+        input_schema:
+          type: object
+          properties:
+            path:
+              type: string
+              description: Path to .sol file, directory, or git URL
+            output:
+              type: string
+              enum: [json, sarif, text]
+              default: text
+            severity:
+              type: string
+              enum: [critical, high, medium, low, all]
+              default: all
+            fix:
+              type: boolean
+              default: false
+          required: [path]
+      fix:
+        name: vora_fix
+        description: Generate fixes for detected vulnerabilities
+        input_schema:
+          type: object
+          properties:
+            path:
+              type: string
+              description: Path to scan and fix
+            severity:
+              type: string
+              enum: [critical, high, medium, low, all]
+              default: critical
+            auto_pr:
+              type: boolean
+              default: false
+          required: [path]
+      explain:
+        name: vora_explain
+        description: Explain a specific vulnerability
+        input_schema:
+          type: object
+          properties:
+            vulnerability_id:
+              type: string
+              description: Vulnerability ID (e.g., VORA-001)
+          required: [vulnerability_id]
+
+  rest:
+    description: HTTP REST API
+    base_url: "https://api.vora.dev/v1"
+    auth:
+      type: bearer
+      header: "Authorization"
+    endpoints:
+      scan:
+        method: POST
+        path: "/scan"
+        body:
+          path: string
+          options: object
+        response: "$ref: /docs/agents/output-schema.json"
+      status:
+        method: GET
+        path: "/scan/{scan_id}"
+        description: Get scan status and results
+      vulnerabilities:
+        method: GET
+        path: "/vulnerabilities"
+        description: List all vulnerability definitions
+
+  claude:
+    description: Claude integration via MCP
+    setup:
+      claude_desktop:
+        config_file: "~/Library/Application Support/Claude/claude_desktop_config.json"
+        add_server:
+          vora:
+            command: "npx"
+            args: ["vora", "mcp-server"]
+      claude_code:
+        command: "claude mcp add vora -- npx vora mcp-server"
+    tools_available:
+      - vora_scan: "Scan Solidity files for vulnerabilities"
+      - vora_fix: "Generate fixes for detected vulnerabilities"
+      - vora_explain: "Explain a specific vulnerability"
+    example_prompts:
+      - "Use VORA to scan my contracts folder for critical vulnerabilities"
+      - "Run a security audit on Vault.sol and fix any reentrancy issues"
+      - "Explain the VORA-001 reentrancy vulnerability"
+
+  cursor:
+    description: Cursor IDE integration via MCP
+    setup:
+      config_file: "~/.cursor/mcp.json"
+      add_server:
+        vora:
+          command: "npx"
+          args: ["vora", "mcp-server"]
+    usage: "In Cursor chat: @vora scan ./contracts"
+
+  codex:
+    description: OpenAI Codex CLI integration
+    setup:
+      command: "codex install vora"
+    invoke: "codex run vora scan ./contracts"
+    tools_available:
+      - scan: "Analyze Solidity for vulnerabilities"
+      - fix: "Auto-generate security fixes"
+
+  vscode:
+    description: VS Code extension
+    install: "code --install-extension vora.vora-security"
+    commands:
+      - "VORA: Scan Current File"
+      - "VORA: Scan Workspace"
+      - "VORA: Apply Fix"
+    keybindings:
+      scan_file: "Ctrl+Shift+V S"
+
+  github_copilot:
+    description: GitHub Copilot integration
+    setup: "Enable VORA as a Copilot Extension in GitHub settings"
+    invoke: "@vora scan this file for vulnerabilities"
+
+  windsurf:
+    description: Windsurf/Codeium integration via MCP
+    setup:
+      config_file: "~/.windsurf/mcp_config.json"
+      add_server:
+        vora:
+          command: "npx"
+          args: ["vora", "mcp-server"]
+
+workflows:
+  ci_pipeline:
+    description: Integrate into CI/CD
+    steps:
+      - action: scan
+        command: "npx vora scan ./contracts --output sarif --severity critical,high"
+      - action: upload
+        target: "GitHub Code Scanning / GitLab SAST"
+    gitlab_example: |
+      security_scan:
+        stage: test
+        script:
+          - npx vora scan ./contracts --output sarif > vora-results.sarif
+        artifacts:
+          reports:
+            sast: vora-results.sarif
+
+  agent_audit:
+    description: Full audit workflow for AI agents
+    steps:
+      - action: scan
+        transport: mcp
+        params:
+          path: "./contracts"
+          output: "json"
+      - action: evaluate
+        condition: "findings.severity == critical"
+      - action: fix
+        transport: mcp
+        params:
+          auto_pr: true
+      - action: report
+        description: "Generate human-readable audit summary"
+
+  pre_deployment:
+    description: Pre-deployment security gate
+    steps:
+      - action: scan
+        command: "npx vora scan ./contracts --output json --severity critical,high"
+      - action: check
+        condition: "exit 1 if critical findings > 0"
+      - action: notify
+        target: "Slack/Discord webhook"

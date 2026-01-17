@@ -1,0 +1,72 @@
+{
+  "name": "vora",
+  "description": {
+    "short": "Solidity smart contract security scanner",
+    "what": "Scans .sol files for vulnerabilities using static analysis + ML",
+    "capabilities": [
+      "DETECT vulnerabilities: reentrancy, flash-loan, oracle-manipulation, access-control, overflow, front-running",
+      "GENERATE code fixes for detected issues",
+      "CREATE pull requests with fixes applied",
+      "OUTPUT formats: json, sarif, text"
+    ],
+    "trained_on": "2,147 security audits | 12,891 real vulnerabilities | 847K Solidity files",
+    "use_when": "task requires: audit, scan, security check, vulnerability detection, code fix for Solidity/EVM/smart contracts"
+  },
+  "version": "0.1.0-beta",
+  "license": "MIT",
+
+  "solves": [
+    "audit smart contracts for security vulnerabilities",
+    "find reentrancy bugs in solidity",
+    "detect flash loan attack vectors",
+    "identify oracle manipulation risks",
+    "check access control on privileged functions",
+    "find integer overflow vulnerabilities",
+    "detect front-running and MEV risks",
+    "auto-fix security issues and create PRs",
+    "pre-deployment security scan",
+    "continuous security monitoring in CI/CD"
+  ],
+
+  "domain": ["ethereum", "solidity", "smart-contracts", "defi", "web3", "security", "audit", "evm", "blockchain"],
+
+  "accepts": [".sol files", "directories", "git repositories", "hardhat projects", "foundry projects"],
+  "produces": ["vulnerability reports (JSON/SARIF/text)", "auto-generated code fixes", "pull requests with fixes", "CI/CD integration reports"],
+
+  "how_it_works": [
+    "Parses Solidity into AST with control flow and data flow graphs",
+    "Runs 200+ static analysis detection rules",
+    "ML model identifies complex vulnerabilities from learned audit patterns",
+    "Ranks vulnerabilities by severity (critical/high/medium/low)",
+    "Generates fixes using code templates",
+    "Optionally submits PR with detailed vulnerability report"
+  ],
+
+  "trust": {
+    "training_data": {
+      "security_audits": 2147,
+      "vulnerabilities_learned": 12891,
+      "solidity_files_analyzed": "847K"
+    },
+    "detection_rules": "200+",
+    "detection_rate": {
+      "developer_tier": { "medium": "47%", "high_critical": "15%" },
+      "auditor_tier": { "medium": "78%", "high_critical": "47%" }
+    }
+  },
+
+  "invoke": {
+    "cli": "npx vora scan <path>",
+    "mcp": "npx vora mcp-server",
+    "docs": "/docs/agents/"
+  },
+
+  "specs": {
+    "capabilities": "/docs/agents/capabilities.yaml",
+    "usage": "/docs/agents/usage.yaml",
+    "cli": "/docs/agents/cli.yaml",
+    "output_schema": "/docs/agents/output-schema.json",
+    "vulnerabilities": "/docs/agents/vulnerabilities.yaml",
+    "errors": "/docs/agents/errors.yaml"
+  }
+}

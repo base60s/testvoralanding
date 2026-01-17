@@ -1,0 +1,295 @@
+# VORA Error Codes
+# Error codes, meanings, and recovery actions
+
+errors:
+  # Input/Path Errors (E0xx)
+  E001:
+    code: E001
+    category: input
+    meaning: No Solidity files found
+    description: The specified path does not contain any .sol files
+    action: Check that the path exists and contains Solidity files (.sol extension)
+    examples:
+      - "npx vora scan ./empty-folder"
+      - "npx vora scan ./javascript-project"
+    recovery:
+      - Verify the path is correct
+      - Check if files have .sol extension
+      - Use --include flag to specify custom patterns
+
+  E002:
+    code: E002
+    category: parsing
+    meaning: Solidity parse error
+    description: Failed to parse one or more Solidity files
+    action: Check Solidity version compatibility and syntax errors
+    examples:
+      - "Syntax error in Contract.sol line 42"
+      - "Unexpected token 'function'"
+    recovery:
+      - Run solc to check for syntax errors
+      - Verify pragma solidity version is supported
+      - Check for missing semicolons or brackets
+      - Use --exclude to skip problematic files
+
+  E003:
+    code: E003
+    category: rate_limit
+    meaning: Rate limit exceeded
+    description: Too many requests in the current time window
+    action: Wait and retry, or upgrade your plan
+    examples:
+      - "Rate limit exceeded. Reset in 60 seconds."
+    recovery:
+      - Wait for the specified cooldown period
+      - Upgrade to a higher tier for increased limits
+      - Implement exponential backoff in automated scripts
+
+  E004:
+    code: E004
+    category: auth
+    meaning: Invalid or missing API key
+    description: The provided API key is invalid or not provided for authenticated endpoints
+    action: Provide a valid VORA_API_KEY environment variable
+    recovery:
+      - Set VORA_API_KEY environment variable
+      - Check key is not expired
+      - Regenerate key from dashboard
+
+  E005:
+    code: E005
+    category: auth
+    meaning: Insufficient permissions
+    description: Your API key does not have permission for this operation
+    action: Upgrade your plan or use an API key with appropriate permissions
+    recovery:
+      - Check your current plan tier
+      - Upgrade to access requested feature
+      - Contact support for enterprise features
+
+  # Network Errors (E1xx)
+  E101:
+    code: E101
+    category: network
+    meaning: Network error
+    description: Failed to connect to VORA API or fetch remote repository
+    action: Check internet connection and try again
+    recovery:
+      - Verify internet connectivity
+      - Check if api.vora.dev is reachable
+      - Try again in a few minutes
+      - Check firewall settings
+
+  E102:
+    code: E102
+    category: network
+    meaning: Git clone failed
+    description: Failed to clone remote repository
+    action: Check repository URL and access permissions
+    examples:
+      - "npx vora scan https://github.com/private/repo"
+    recovery:
+      - Verify repository URL is correct
+      - Check repository is public or credentials are set
+      - Set GITHUB_TOKEN for private repos
+
+  E103:
+    code: E103
+    category: network
+    meaning: Timeout
+    description: Operation timed out
+    action: Retry with a smaller scope or check network conditions
+    recovery:
+      - Scan smaller directories
+      - Check network latency
+      - Retry the operation
+
+  # Configuration Errors (E2xx)
+  E201:
+    code: E201
+    category: config
+    meaning: Invalid configuration file
+    description: The .vora.yaml configuration file has invalid syntax or schema
+    action: Fix the configuration file according to the schema
+    recovery:
+      - Validate YAML syntax
+      - Check against config schema in cli.yaml
+      - Remove or rename the config file to use defaults
+
+  E202:
+    code: E202
+    category: config
+    meaning: Unknown option
+    description: An unrecognized command-line option was provided
+    action: Check available options with --help
+    recovery:
+      - Run 'npx vora scan --help'
+      - Check for typos in option names
+      - Update to latest VORA version
+
+  E203:
+    code: E203
+    category: config
+    meaning: Invalid option value
+    description: A command-line option has an invalid value
+    action: Provide a valid value for the option
+    examples:
+      - "--output xml (xml not supported)"
+      - "--severity extreme (invalid severity)"
+    recovery:
+      - Check allowed values in cli.yaml
+      - Use one of: json, sarif, text for --output
+      - Use one of: critical, high, medium, low, all for --severity
+
+  # Processing Errors (E3xx)
+  E301:
+    code: E301
+    category: processing
+    meaning: Analysis failed
+    description: The static analysis engine encountered an error
+    action: Report this issue with the file that caused the error
+    recovery:
+      - Exclude the problematic file and retry
+      - Report bug with minimal reproduction case
+      - Check for unsupported Solidity features
+
+  E302:
+    code: E302
+    category: processing
+    meaning: ML model error
+    description: The machine learning model failed to process the input
+    action: This is usually a transient error, retry the scan
+    recovery:
+      - Retry the scan
+      - If persistent, try with --no-ml flag
+      - Report bug if issue continues
+
+  E303:
+    code: E303
+    category: processing
+    meaning: Fix generation failed
+    description: Could not generate a fix for the detected vulnerability
+    action: Manual fix required, see vulnerability documentation
+    recovery:
+      - Review vulnerability details
+      - Apply fix manually based on fix_template
+      - Check vulnerabilities.yaml for guidance
+
+  # Git/PR Errors (E4xx)
+  E401:
+    code: E401
+    category: git
+    meaning: Not a git repository
+    description: The --pr flag requires the target to be a git repository
+    action: Initialize a git repository or remove the --pr flag
+    recovery:
+      - Run 'git init' in the project directory
+      - Remove --pr flag if PR not needed
+      - Clone from remote if project exists there
+
+  E402:
+    code: E402
+    category: git
+    meaning: Git authentication failed
+    description: Failed to authenticate with GitHub/GitLab for PR creation
+    action: Set GITHUB_TOKEN or GITLAB_TOKEN environment variable
+    recovery:
+      - Generate personal access token
+      - Set appropriate environment variable
+      - Ensure token has repo/write access
+
+  E403:
+    code: E403
+    category: git
+    meaning: PR creation failed
+    description: Failed to create the pull request
+    action: Check repository permissions and try again
+    recovery:
+      - Verify write access to repository
+      - Check if branch already exists
+      - Manually push changes and create PR
+
+  # Resource Errors (E5xx)
+  E501:
+    code: E501
+    category: resource
+    meaning: Out of memory
+    description: The scan exceeded available memory
+    action: Scan fewer files at once or increase available memory
+    recovery:
+      - Scan subdirectories separately
+      - Exclude large files
+      - Increase Node.js memory limit
+
+  E502:
+    code: E502
+    category: resource
+    meaning: Scan too large
+    description: The scan target exceeds size limits for your plan
+    action: Upgrade your plan or scan smaller portions
+    recovery:
+      - Check current plan limits
+      - Scan smaller directories
+      - Upgrade to Pro or Enterprise
+
+exit_codes:
+  0:
+    meaning: Success, no vulnerabilities found
+    action: None required
+
+  1:
+    meaning: Success, vulnerabilities found
+    action: Review findings and apply fixes
+
+  2:
+    meaning: Input error
+    action: Check path and input parameters
+
+  3:
+    meaning: Configuration error
+    action: Fix configuration file or options
+
+  4:
+    meaning: Network error
+    action: Check connectivity and retry
+
+  5:
+    meaning: Processing error
+    action: Report bug or adjust input
+
+  126:
+    meaning: Permission denied
+    action: Check file permissions
+
+  127:
+    meaning: Command not found
+    action: Ensure npx and Node.js are installed
+
+categories:
+  input:
+    description: Errors related to input paths and files
+    severity: user-fixable
+  parsing:
+    description: Errors parsing Solidity code
+    severity: user-fixable
+  rate_limit:
+    description: Rate limiting errors
+    severity: wait-or-upgrade
+  auth:
+    description: Authentication and authorization errors
+    severity: user-fixable
+  network:
+    description: Network connectivity errors
+    severity: transient
+  config:
+    description: Configuration errors
+    severity: user-fixable
+  processing:
+    description: Internal processing errors
+    severity: report-bug
+  git:
+    description: Git and PR-related errors
+    severity: user-fixable
+  resource:
+    description: Resource limit errors
+    severity: upgrade-or-adjust

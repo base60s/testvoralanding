@@ -1,0 +1,130 @@
+# VORA Capabilities Specification
+# Detailed capability specs with task-to-feature mapping
+
+detect:
+  reentrancy:
+    id: VORA-001
+    severity: critical
+    pattern: external_call_before_state_update
+    description: Detects cross-function and cross-contract reentrancy vulnerabilities, including read-only reentrancy patterns.
+    task_match:
+      - "find reentrancy"
+      - "detect reentrant calls"
+      - "check withdrawal safety"
+      - "reentrancy vulnerability"
+      - "cross-function reentrancy"
+      - "read-only reentrancy"
+
+  flash_loan:
+    id: VORA-002
+    severity: critical
+    pattern: price_manipulation_via_atomic_transaction
+    description: Identifies price manipulation vectors through flash loan-enabled atomic transactions.
+    task_match:
+      - "flash loan attack"
+      - "price manipulation"
+      - "atomic arbitrage"
+      - "flash loan vulnerability"
+      - "flash loan exploit"
+
+  oracle_manipulation:
+    id: VORA-003
+    severity: critical
+    pattern: vulnerable_oracle_dependency
+    description: Detects vulnerable oracle dependencies and spot price usage without TWAP protection.
+    task_match:
+      - "oracle manipulation"
+      - "price oracle vulnerability"
+      - "TWAP protection"
+      - "spot price risk"
+      - "oracle dependency"
+
+  access_control:
+    id: VORA-004
+    severity: high
+    pattern: missing_access_modifier
+    description: Missing or incorrect access control modifiers on privileged functions.
+    task_match:
+      - "access control"
+      - "missing modifier"
+      - "privileged function"
+      - "authorization check"
+      - "permission vulnerability"
+      - "onlyOwner missing"
+
+  integer_overflow:
+    id: VORA-005
+    severity: high
+    pattern: unchecked_arithmetic
+    description: Arithmetic operations without SafeMath (pre-0.8.0) or unchecked blocks causing overflow.
+    task_match:
+      - "integer overflow"
+      - "arithmetic overflow"
+      - "SafeMath"
+      - "unchecked block"
+      - "underflow"
+
+  front_running:
+    id: VORA-006
+    severity: medium
+    pattern: transaction_ordering_dependency
+    description: Transaction ordering dependencies and sandwich attack vectors in DEX integrations.
+    task_match:
+      - "front-running"
+      - "frontrun"
+      - "sandwich attack"
+      - "MEV"
+      - "transaction ordering"
+      - "DEX vulnerability"
+
+fix:
+  auto_generate: true
+  pull_request: true
+  description: Generates code fixes using templates and can submit PRs with detailed vulnerability reports
+
+output_formats:
+  - json
+  - sarif
+  - text
+
+integrations:
+  - name: gitlab
+    type: ci_cd
+  - name: hardhat
+    type: framework
+  - name: foundry
+    type: framework
+  - name: vscode
+    type: ide
+  - name: claude-code
+    type: ai_agent
+  - name: codex-cli
+    type: ai_agent
+
+pricing_tiers:
+  developer:
+    rate: "$0.00001/token"
+    free_tier: "5K tokens"
+    detection_rate:
+      medium: "47%"
+      high_critical: "15%"
+    use_case: "Smart contract review during development"
+  auditor:
+    rate: "$0.00005/token"
+    detection_rate:
+      medium: "78%"
+      high_critical: "47%"
+    use_case: "Audit and deployment preparation"
+  pro:
+    rate: "$199/month"
+    credits: 23000
+    team_size: 3
+    features:
+      - "CI Integration"
+  enterprise:
+    rate: "Contact us"
+    team_size: 10
+    features:
+      - "CI Integration"
+      - "Dedicated Telegram or Slack channel support"
+      - "Custom SLA"

@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vora.dev/schemas/output-schema.json",
+  "title": "VORA Scan Output",
+  "description": "JSON schema for parsing VORA scan results",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "VORA version that produced this output",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-\\w+)?$",
+      "examples": ["0.1.0-beta"]
+    },
+    "scan_id": {
+      "type": "string",
+      "description": "Unique identifier for this scan",
+      "format": "uuid"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "ISO 8601 timestamp when scan completed",
+      "format": "date-time"
+    },
+    "target": {
+      "type": "object",
+      "description": "Information about what was scanned",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path or URL that was scanned"
+        },
+        "files_scanned": {
+          "type": "integer",
+          "description": "Number of .sol files analyzed",
+          "minimum": 0
+        },
+        "total_lines": {
+          "type": "integer",
+          "description": "Total lines of Solidity code",
+          "minimum": 0
+        },
+        "contracts": {
+          "type": "integer",
+          "description": "Number of contracts found",
+          "minimum": 0
+        }
+      },
+      "required": ["path", "files_scanned"]
+    },
+    "summary": {
+      "type": "object",
+      "description": "Summary of findings by severity",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "description": "Total number of vulnerabilities found",
+          "minimum": 0
+        },
+        "critical": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "high": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "medium": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "low": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["total", "critical", "high", "medium", "low"]
+    },
+    "findings": {
+      "type": "array",
+      "description": "List of detected vulnerabilities",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Scan performance metrics",
+      "properties": {
+        "duration_ms": {
+          "type": "integer",
+          "description": "Scan duration in milliseconds"
+        },
+        "tokens_used": {
+          "type": "integer",
+          "description": "Number of tokens consumed (for billing)"
+        },
+        "rules_executed": {
+          "type": "integer",
+          "description": "Number of detection rules applied"
+        }
+      }
+    }
+  },
+  "required": ["version", "timestamp", "target", "summary", "findings"],
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "description": "A single vulnerability finding",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique finding identifier",
+          "pattern": "^[A-Z0-9-]+$"
+        },
+        "rule_id": {
+          "type": "string",
+          "description": "VORA rule that detected this",
+          "pattern": "^VORA-\\d{3}$",
+          "examples": ["VORA-001", "VORA-002"]
+        },
+        "title": {
+          "type": "string",
+          "description": "Short title of the vulnerability",
+          "examples": ["Reentrancy", "Flash Loan Attack", "Oracle Manipulation"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"],
+          "description": "Severity level of the finding"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Confidence level of the detection"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the vulnerability"
+        },
+        "location": {
+          "type": "object",
+          "description": "Where the vulnerability was found",
+          "properties": {
+            "file": {
+              "type": "string",
+              "description": "Relative path to the file"
+            },
+            "line_start": {
+              "type": "integer",
+              "description": "Starting line number",
+              "minimum": 1
+            },
+            "line_end": {
+              "type": "integer",
+              "description": "Ending line number",
+              "minimum": 1
+            },
+            "column_start": {
+              "type": "integer",
+              "description": "Starting column",
+              "minimum": 1
+            },
+            "column_end": {
+              "type": "integer",
+              "description": "Ending column",
+              "minimum": 1
+            },
+            "contract": {
+              "type": "string",
+              "description": "Name of the contract"
+            },
+            "function": {
+              "type": "string",
+              "description": "Name of the function"
+            }
+          },
+          "required": ["file", "line_start", "line_end"]
+        },
+        "code_snippet": {
+          "type": "string",
+          "description": "Relevant code snippet showing the vulnerability"
+        },
+        "fix": {
+          "type": "object",
+          "description": "Suggested fix (when --fix flag is used)",
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "Human-readable fix description"
+            },
+            "diff": {
+              "type": "string",
+              "description": "Unified diff format patch"
+            },
+            "replacement": {
+              "type": "string",
+              "description": "Code to replace the vulnerable section"
+            }
+          }
+        },
+        "references": {
+          "type": "array",
+          "description": "Links to related documentation",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        },
+        "cwe": {
+          "type": "array",
+          "description": "Related CWE identifiers",
+          "items": {
+            "type": "string",
+            "pattern": "^CWE-\\d+$"
+          }
+        },
+        "swc": {
+          "type": "string",
+          "description": "Smart Contract Weakness Classification ID",
+          "pattern": "^SWC-\\d{3}$"
+        }
+      },
+      "required": ["id", "rule_id", "title", "severity", "description", "location"]
+    }
+  }
+}

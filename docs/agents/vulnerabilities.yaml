@@ -1,0 +1,304 @@
+# VORA Vulnerability Catalog
+# Structured vulnerability definitions with ID, pattern, severity, and fix templates
+
+vulnerabilities:
+  - id: VORA-001
+    name: Reentrancy
+    severity: critical
+    category: state-management
+    description: Detects cross-function and cross-contract reentrancy vulnerabilities, including read-only reentrancy patterns.
+    pattern:
+      type: external_call_before_state_update
+      indicators:
+        - External call followed by state modification
+        - Missing reentrancy guard/mutex
+        - Cross-contract callbacks
+        - Read-only reentrancy via view functions
+    impact: |
+      Attacker can recursively call back into the contract before state is updated,
+      potentially draining funds or corrupting state.
+    fix_template:
+      strategy: checks-effects-interactions
+      steps:
+        - Move state updates before external calls
+        - Add ReentrancyGuard modifier from OpenZeppelin
+        - Use pull-over-push pattern for withdrawals
+      code_example: |
+        // Before (vulnerable)
+        function withdraw(uint256 amount) external {
+            require(balances[msg.sender] >= amount);
+            (bool success, ) = msg.sender.call{value: amount}("");
+            require(success);
+            balances[msg.sender] -= amount;  // State update AFTER call
+        }
+
+        // After (fixed)
+        function withdraw(uint256 amount) external nonReentrant {
+            require(balances[msg.sender] >= amount);
+            balances[msg.sender] -= amount;  // State update BEFORE call
+            (bool success, ) = msg.sender.call{value: amount}("");
+            require(success);
+        }
+    references:
+      - title: "SWC-107: Reentrancy"
+        url: "https://swcregistry.io/docs/SWC-107"
+      - title: "OpenZeppelin ReentrancyGuard"
+        url: "https://docs.openzeppelin.com/contracts/4.x/api/security#ReentrancyGuard"
+    cwe: ["CWE-841"]
+    swc: "SWC-107"
+
+  - id: VORA-002
+    name: Flash Loan Attacks
+    severity: critical
+    category: price-manipulation
+    description: Identifies price manipulation vectors through flash loan-enabled atomic transactions.
+    pattern:
+      type: price_manipulation_via_atomic_transaction
+      indicators:
+        - Price reads without time-weighted averaging
+        - Single-block price dependency
+        - Liquidity pool spot price usage
+        - Unchecked price impact calculations
+    impact: |
+      Attacker can borrow large amounts via flash loan, manipulate prices within
+      a single transaction, exploit the protocol, and repay the loan.
+    fix_template:
+      strategy: time-weighted-protection
+      steps:
+        - Use TWAP (Time-Weighted Average Price) oracles
+        - Add price deviation checks
+        - Implement flash loan guards
+        - Add minimum holding period for price-sensitive operations
+      code_example: |
+        // Before (vulnerable)
+        function getPrice() public view returns (uint256) {
+            return pair.getSpotPrice();  // Single-block price
+        }
+
+        // After (fixed)
+        function getPrice() public view returns (uint256) {
+            return twapOracle.consult(token, 30 minutes);  // 30-min TWAP
+        }
+    references:
+      - title: "Flash Loan Attack Vectors"
+        url: "https://ethereum.org/en/developers/tutorials/flash-loans/"
+    cwe: ["CWE-682"]
+    swc: null
+
+  - id: VORA-003
+    name: Oracle Manipulation
+    severity: critical
+    category: price-manipulation
+    description: Detects vulnerable oracle dependencies and spot price usage without TWAP protection.
+    pattern:
+      type: vulnerable_oracle_dependency
+      indicators:
+        - Single oracle dependency
+        - No oracle freshness check
+        - Spot price from DEX
+        - Missing oracle failover
+    impact: |
+      Attacker can manipulate the oracle or exploit stale prices to
+      gain unfair advantage or drain protocol funds.
+    fix_template:
+      strategy: robust-oracle-design
+      steps:
+        - Use multiple oracle sources with aggregation
+        - Add freshness checks (heartbeat)
+        - Implement circuit breakers for extreme deviations
+        - Use Chainlink or other decentralized oracles
+      code_example: |
+        // Before (vulnerable)
+        function getPrice() public view returns (uint256) {
+            return oracle.latestAnswer();  // No freshness check
+        }
+
+        // After (fixed)
+        function getPrice() public view returns (uint256) {
+            (, int256 price,, uint256 updatedAt,) = oracle.latestRoundData();
+            require(block.timestamp - updatedAt < MAX_STALENESS, "Stale price");
+            require(price > 0, "Invalid price");
+            return uint256(price);
+        }
+    references:
+      - title: "Chainlink Data Feeds Best Practices"
+        url: "https://docs.chain.link/data-feeds/selecting-data-feeds"
+    cwe: ["CWE-20", "CWE-346"]
+    swc: null
+
+  - id: VORA-004
+    name: Access Control
+    severity: high
+    category: authorization
+    description: Missing or incorrect access control modifiers on privileged functions.
+    pattern:
+      type: missing_access_modifier
+      indicators:
+        - Public/external functions without access checks
+        - Missing onlyOwner/onlyRole modifiers
+        - Incorrect modifier logic
+        - Privilege escalation paths
+    impact: |
+      Unauthorized users can call privileged functions, potentially
+      draining funds, changing critical parameters, or breaking the protocol.
+    fix_template:
+      strategy: proper-access-control
+      steps:
+        - Add appropriate access modifiers (onlyOwner, onlyRole)
+        - Use OpenZeppelin AccessControl for complex permissions
+        - Implement role-based access control
+        - Add multi-sig for critical operations
+      code_example: |
+        // Before (vulnerable)
+        function setFee(uint256 newFee) external {
+            fee = newFee;  // Anyone can change fees!
+        }
+
+        // After (fixed)
+        function setFee(uint256 newFee) external onlyOwner {
+            require(newFee <= MAX_FEE, "Fee too high");
+            fee = newFee;
+        }
+    references:
+      - title: "SWC-105: Unprotected Ether Withdrawal"
+        url: "https://swcregistry.io/docs/SWC-105"
+      - title: "OpenZeppelin Access Control"
+        url: "https://docs.openzeppelin.com/contracts/4.x/access-control"
+    cwe: ["CWE-284", "CWE-285"]
+    swc: "SWC-105"
+
+  - id: VORA-005
+    name: Integer Overflow
+    severity: high
+    category: arithmetic
+    description: Arithmetic operations without SafeMath (pre-0.8.0) or unchecked blocks causing overflow.
+    pattern:
+      type: unchecked_arithmetic
+      indicators:
+        - Solidity version < 0.8.0 without SafeMath
+        - Unchecked blocks with user-controlled values
+        - Type casting without bounds checking
+        - Multiplication before division
+    impact: |
+      Integer overflow/underflow can lead to incorrect calculations,
+      bypassing balance checks, or minting unlimited tokens.
+    fix_template:
+      strategy: safe-arithmetic
+      steps:
+        - Upgrade to Solidity 0.8.0+ for automatic overflow checks
+        - Use SafeMath for Solidity < 0.8.0
+        - Remove unchecked blocks unless proven safe
+        - Add explicit bounds checking
+      code_example: |
+        // Before (vulnerable, Solidity < 0.8.0)
+        function addReward(uint256 amount) external {
+            rewards[msg.sender] += amount;  // Can overflow
+        }
+
+        // After (fixed, using SafeMath)
+        using SafeMath for uint256;
+        function addReward(uint256 amount) external {
+            rewards[msg.sender] = rewards[msg.sender].add(amount);
+        }
+
+        // Or upgrade to Solidity 0.8.0+
+        pragma solidity ^0.8.0;
+        function addReward(uint256 amount) external {
+            rewards[msg.sender] += amount;  // Auto-checked
+        }
+    references:
+      - title: "SWC-101: Integer Overflow and Underflow"
+        url: "https://swcregistry.io/docs/SWC-101"
+    cwe: ["CWE-190", "CWE-191"]
+    swc: "SWC-101"
+
+  - id: VORA-006
+    name: Front-Running
+    severity: medium
+    category: transaction-ordering
+    description: Transaction ordering dependencies and sandwich attack vectors in DEX integrations.
+    pattern:
+      type: transaction_ordering_dependency
+      indicators:
+        - Predictable transaction outcomes
+        - No slippage protection
+        - Public mempool exposure
+        - DEX swap without deadline
+    impact: |
+      Attackers can observe pending transactions and front-run them for profit,
+      sandwich attacks can extract value from users' trades.
+    fix_template:
+      strategy: mev-protection
+      steps:
+        - Add slippage tolerance parameters
+        - Use commit-reveal schemes for sensitive operations
+        - Add transaction deadlines
+        - Consider private mempools or Flashbots
+      code_example: |
+        // Before (vulnerable)
+        function swap(uint256 amountIn) external {
+            uint256 amountOut = router.swap(amountIn);  // No slippage check
+        }
+
+        // After (fixed)
+        function swap(
+            uint256 amountIn,
+            uint256 amountOutMin,  // Slippage protection
+            uint256 deadline       // Deadline protection
+        ) external {
+            require(block.timestamp <= deadline, "Expired");
+            uint256 amountOut = router.swap(amountIn);
+            require(amountOut >= amountOutMin, "Slippage");
+        }
+    references:
+      - title: "SWC-114: Transaction Order Dependence"
+        url: "https://swcregistry.io/docs/SWC-114"
+      - title: "Flashbots Documentation"
+        url: "https://docs.flashbots.net/"
+    cwe: ["CWE-362"]
+    swc: "SWC-114"
+
+severity_definitions:
+  critical:
+    description: Immediate risk of fund loss or complete protocol compromise
+    examples:
+      - Reentrancy allowing fund drain
+      - Flash loan attacks on price oracles
+      - Unprotected administrative functions
+    action: Must fix before deployment
+
+  high:
+    description: Significant risk that could lead to fund loss under specific conditions
+    examples:
+      - Missing access control on sensitive functions
+      - Integer overflow in token calculations
+      - Incorrect privilege management
+    action: Should fix before deployment
+
+  medium:
+    description: Issues that could lead to value extraction or degraded functionality
+    examples:
+      - Front-running vulnerabilities
+      - Missing event emissions
+      - Gas optimization issues with security implications
+    action: Recommended to fix
+
+  low:
+    description: Minor issues, best practice violations, or informational findings
+    examples:
+      - Unused variables
+      - Suboptimal gas usage
+      - Missing NatSpec documentation
+    action: Consider fixing
+
+categories:
+  state-management:
+    description: Issues with contract state handling and updates
+  price-manipulation:
+    description: Vulnerabilities allowing price or value manipulation
+  authorization:
+    description: Access control and permission issues
+  arithmetic:
+    description: Mathematical operation vulnerabilities
+  transaction-ordering:
+    description: MEV and transaction sequencing issues

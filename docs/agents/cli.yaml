@@ -1,0 +1,181 @@
+# VORA CLI Specification
+# Exact command syntax, parameters, types, constraints
+
+command: npx vora scan
+
+description: Scan Solidity files for security vulnerabilities using static analysis and ML
+
+args:
+  path:
+    type: string
+    required: true
+    position: 1
+    description: Path to .sol file, directory, or git URL
+    examples:
+      - "./contracts"
+      - "./contracts/Vault.sol"
+      - "https://github.com/user/repo"
+      - "."
+
+options:
+  --output:
+    short: -o
+    type: enum
+    values: [json, sarif, text]
+    default: text
+    description: Output format for scan results
+    notes:
+      json: Machine-readable, use for programmatic parsing
+      sarif: Static Analysis Results Interchange Format, use for GitHub/GitLab integration
+      text: Human-readable, use for terminal output
+
+  --severity:
+    short: -s
+    type: enum
+    values: [critical, high, medium, low, all]
+    default: all
+    description: Filter results by minimum severity level
+    notes:
+      critical: Only critical vulnerabilities (reentrancy, flash loan, oracle manipulation)
+      high: Critical + high (includes access control, integer overflow)
+      medium: Critical + high + medium (includes front-running)
+      low: All including low severity
+      all: Show all findings
+
+  --fix:
+    short: -f
+    type: boolean
+    default: false
+    description: Generate fix suggestions for detected vulnerabilities
+    notes: Adds 'fix' field to each vulnerability in output
+
+  --pr:
+    type: boolean
+    default: false
+    description: Create pull request with fixes applied
+    requires: --fix
+    notes: Requires git repository and GitHub/GitLab credentials
+
+  --config:
+    short: -c
+    type: string
+    description: Path to VORA configuration file
+    default: ".vora.yaml"
+
+  --exclude:
+    short: -e
+    type: string
+    description: Glob pattern for files to exclude
+    examples:
+      - "**/*.test.sol"
+      - "**/mocks/**"
+
+  --include:
+    short: -i
+    type: string
+    description: Glob pattern for files to include (overrides default)
+    default: "**/*.sol"
+
+  --quiet:
+    short: -q
+    type: boolean
+    default: false
+    description: Suppress progress output, only show results
+
+  --verbose:
+    short: -v
+    type: boolean
+    default: false
+    description: Show detailed analysis progress and debug info
+
+  --version:
+    type: boolean
+    description: Show VORA version
+
+  --help:
+    short: -h
+    type: boolean
+    description: Show help message
+
+exit_codes:
+  0: No vulnerabilities found
+  1: Vulnerabilities found
+  2: Parse error or invalid input
+  3: Configuration error
+  4: Network error (for git URLs or API calls)
+
+examples:
+  - task: "Scan a directory"
+    command: "npx vora scan ./contracts"
+    output: text
+
+  - task: "Get JSON output for CI"
+    command: "npx vora scan ./contracts --output json"
+    output: json
+
+  - task: "Get SARIF for GitHub Code Scanning"
+    command: "npx vora scan ./contracts --output sarif > results.sarif"
+    output: sarif
+
+  - task: "Scan only critical and high severity"
+    command: "npx vora scan ./contracts --severity high"
+    output: text
+
+  - task: "Auto-fix critical issues"
+    command: "npx vora scan ./contracts --fix --severity critical"
+    output: text
+
+  - task: "Create PR with all fixes"
+    command: "npx vora scan ./contracts --fix --pr"
+    output: text
+
+  - task: "Scan single file quietly"
+    command: "npx vora scan ./contracts/Vault.sol --quiet --output json"
+    output: json
+
+  - task: "Exclude test files"
+    command: "npx vora scan ./contracts --exclude '**/*.test.sol'"
+    output: text
+
+  - task: "Scan remote repository"
+    command: "npx vora scan https://github.com/user/defi-protocol"
+    output: text
+
+environment_variables:
+  VORA_API_KEY:
+    description: API key for authenticated scans (required for Auditor tier)
+    required: false
+
+  VORA_OUTPUT:
+    description: Default output format
+    values: [json, sarif, text]
+
+  VORA_SEVERITY:
+    description: Default severity filter
+    values: [critical, high, medium, low, all]
+
+  GITHUB_TOKEN:
+    description: Required for --pr option with GitHub repositories
+    required: false
+
+  GITLAB_TOKEN:
+    description: Required for --pr option with GitLab repositories
+    required: false
+
+config_file:
+  name: ".vora.yaml"
+  location: Project root
+  schema:
+    exclude:
+      type: array
+      items: string
+      description: Glob patterns to exclude
+    severity:
+      type: string
+      enum: [critical, high, medium, low, all]
+    output:
+      type: string
+      enum: [json, sarif, text]
+    custom_rules:
+      type: array
+      description: Path to custom rule definitions
