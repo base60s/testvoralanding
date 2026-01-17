@@ -1772,6 +1772,142 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    /* Hero Badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(34, 197, 94, 0.1));
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+      margin-bottom: 24px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    /* Agent Features Strip */
+    .agent-features {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 48px;
+      padding: 24px 32px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .agent-feature {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .agent-feature-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .agent-feature-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .agent-feature-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .agent-features {
+        gap: 24px;
+        padding: 20px;
+      }
+      .agent-feature {
+        min-width: 120px;
+      }
+    }
+
+    /* Updated Integrations */
+    .integrations-headline {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .integrations-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .integrations-row.primary {
+      margin-bottom: 24px;
+    }
+
+    .integrations-row.secondary {
+      opacity: 0.7;
+    }
+
+    .integrations-row.secondary .integration-item {
+      font-size: 13px;
+    }
+
+    .integrations-row.secondary .integration-item svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .integration-item.highlighted {
+      position: relative;
+    }
+
+    .integration-item.highlighted::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      right: -6px;
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--green);
+    }
+
+    /* Footer tagline */
+    .footer-tagline {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
@@ -1796,8 +1932,12 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <h1>Cut Audit Time & Smart Contract<br>Vulnerabilities in Real-Time</h1>
-      <p class="hero-sub">ML-based security scanner for Solidity. Trained on 2,000+ audits.</p>
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Agent-Native Security
+      </div>
+      <h1>Your Agent's Security Expert<br>Always On. Always Auditing.</h1>
+      <p class="hero-sub">Agents discover it, run it, and ship secure code—autonomously.</p>
 
       <div class="install-box">
         <span class="dollar">$</span>
@@ -1894,6 +2034,30 @@
             <span>▶</span>
             <span>✏️ New pattern learned</span>
           </div>
+        </div>
+      </div>
+
+      <!-- Agent Superpowers -->
+      <div class="agent-features">
+        <div class="agent-feature">
+          <span class="agent-feature-icon">🔍</span>
+          <span class="agent-feature-title">Auto-Discovery</span>
+          <span class="agent-feature-desc">Agents find VORA via agents.json</span>
+        </div>
+        <div class="agent-feature">
+          <span class="agent-feature-icon">🔄</span>
+          <span class="agent-feature-title">Full Autonomy</span>
+          <span class="agent-feature-desc">Scan → Fix → PR without prompts</span>
+        </div>
+        <div class="agent-feature">
+          <span class="agent-feature-icon">🤖</span>
+          <span class="agent-feature-title">MCP Native</span>
+          <span class="agent-feature-desc">Speaks agent protocol fluently</span>
+        </div>
+        <div class="agent-feature">
+          <span class="agent-feature-icon">📊</span>
+          <span class="agent-feature-title">Machine-Readable</span>
+          <span class="agent-feature-desc">JSON/SARIF output agents parse</span>
         </div>
       </div>
     </div>
@@ -2209,8 +2373,35 @@
   <!-- Integrations -->
   <section class="integrations">
     <div class="container">
-      <p class="integrations-label">Integrates with your workflow</p>
-      <div class="integrations-logos">
+      <h3 class="integrations-headline">Native to Every AI Agent</h3>
+      <p class="integrations-label">Works out of the box with your favorite tools</p>
+
+      <!-- Primary Row: AI Agents -->
+      <div class="integrations-row primary">
+        <div class="integration-item highlighted">
+          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v2M12 16v2M6 12h2M16 12h2M8.5 8.5l1.4 1.4M14.1 14.1l1.4 1.4M8.5 15.5l1.4-1.4M14.1 9.9l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Claude
+        </div>
+        <div class="integration-item highlighted">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Cursor
+        </div>
+        <div class="integration-item highlighted">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h5v2H8v-2z"/></svg>
+          Codex
+        </div>
+        <div class="integration-item highlighted">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Windsurf
+        </div>
+        <div class="integration-item highlighted">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+          Copilot
+        </div>
+      </div>
+
+      <!-- Secondary Row: Dev Tools -->
+      <div class="integrations-row secondary">
         <div class="integration-item">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"/></svg>
           GitLab
@@ -2224,16 +2415,8 @@
           Foundry
         </div>
         <div class="integration-item">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.12.098.153.228.166.331.014.103.03.336.017.519z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>
           VS Code
-        </div>
-        <div class="integration-item">
-          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v2M12 16v2M6 12h2M16 12h2M8.5 8.5l1.4 1.4M14.1 14.1l1.4 1.4M8.5 15.5l1.4-1.4M14.1 9.9l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          Claude Code
-        </div>
-        <div class="integration-item">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h5v2H8v-2z"/></svg>
-          Codex CLI
         </div>
         <a href="agent-docs.html" class="integration-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
@@ -2636,6 +2819,7 @@
         <a href="docs.html">Docs</a>
         <a href="agent-docs.html">Agent API</a>
       </nav>
+      <p class="footer-tagline">Security that scales with your agents.</p>
       <p class="footer-copy">&copy; 2026 Chroma Labs. MIT License.</p>
       <div class="footer-social">
         <a href="https://twitter.com" target="_blank">
